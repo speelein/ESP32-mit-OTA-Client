@@ -1,0 +1,38 @@
+{
+    ...
+
+        //--- Python path - needed for espOTA.py
+
+    "python.pythonPath": "C:/Python34/python.exe",
+
+        //--- ESP8266FS for Visual Studio Code settings
+
+    "esp8266fs.dataFiles": "./data",
+    "esp8266fs.preferencesPath": "C:/Users/X/AppData/Local/Arduino15",
+    "esp8266fs.arduinoUserPath": "C:/Users/X/Documents/Arduino",
+    "esp8266fs.spiffsImage": "./temp/spiffs.image.bin",
+    "esp8266fs.logLevel": "normal",
+
+    "esp8266fs.mkspiffs.executable": "C:/Users/X/AppData/Local/Arduino15/packages/esp8266/tools/mkspiffs/0.2.0/mkspiffs.exe",
+    "esp8266fs.mkspiffs.debugLevel": "0",
+    "esp8266fs.mkspiffs.allFiles": true,
+
+    "esp8266fs.esptool.executable": "C:/Users/X/AppData/Local/Arduino15/packages/esp8266/tools/esptool/0.4.12/esptool.exe",
+    "esp8266fs.esptool.verbosity": "vvv",
+
+    "esp8266fs.esptool.py.before": "default_reset",
+    "esp8266fs.esptool.py.after": "hard_reset",
+    "esp8266fs.esptool.py.no_stub": "false",
+    "esp8266fs.esptool.py.trace": "false",
+    "esptool.py.spi_connection": "SPI",
+    "esptool.py.compress": "true",
+    "esptool.py.verify": "false",
+
+    "esp8266fs.espota.py": "C:/Users/X/AppData/Local/Arduino15/packages/esp8266/hardware/esp8266/2.4.0/espota.py",
+    "esp8266fs.espota.esp.port": 8266,
+    "esp8266fs.espota.host.ip": "0.0.0.0",
+    "esp8266fs.espota.host.port": 12345,
+    "esp8266fs.espota.debug": true,
+
+    ...
+}

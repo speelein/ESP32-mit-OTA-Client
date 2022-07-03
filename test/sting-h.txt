@@ -1,0 +1,31 @@
+Funktionen für Zeichenketten: <string.h>
+
+In der Definitionsdatei <string.h> werden zwei Gruppen von Funktionen für Zeichenketten vereinbart. Die erste Gruppe hat Namen, die mit str beginnen; die Namen der zweiten Gruppe beginnen mit mem. Sieht man von memmove ab, ist der Effekt der Funktionen undefiniert, wenn zwischen überlappenden Objekten kopiert wird.
+
+In der folgenden Tabelle sind die Variablen s und t vom Typ char *; die Parameter cs und ct haben den Typ const char *; der Parameter n hat den Typ size_t; und c ist ein int-Wert, der in char umgewandelt wird. Die Vergleichsfunktionen behandeln ihre Argumente als unsigned char Vektoren.
+
+char *strcpy(s,ct)	Zeichenkette ct in Vektor s kopieren, inklusive '\0'; liefert s.
+char *strncpy(s,ct,n)	höchstens n Zeichen aus ct in s kopieren; liefert s. Mit '\0' auffüllen, wenn ct weniger als n Zeichen hat.
+char *strcat(s,ct)	Zeichenkette ct hinten an die Zeichenkette s anfügen; liefert s.
+char *strncat(s,ct,n)	höchstens n Zeichen von ct hinten an die Zeichenkette s anfügen und s mit '\0' abschließen; liefert s.
+int strcmp(cs,ct)	Zeichenketten cs und ct vergleichen; liefert <0 wenn cs<ct, 0 wenn cs==ct,oder >0, wenn cs>ct.
+int strncmp(cs,ct,n)	höchstens n Zeichen von cs mit der Zeichenkette ct vergleichen; liefert <0 wenn cs<ct, 0 wenn cs==ct, oder >0 wenn cs>ct.
+char *strchr(cs,c)	liefert Zeiger auf das erste c in cs oder NULL, falls nicht vorhanden.
+char *strrchr(cs,c)	liefert Zeiger auf das letzte c in cs, oder NULL, falls nicht vorhanden,
+size_t strspn(cs,ct)	liefert Anzahl der Zeichen am Anfang von cs, die sämtlich in ct vorkommen.
+size_t strcspn(cs,ct)	liefert Anzahl der Zeichen am Anfang von cs, die sämtlich in nicht ct vorkommen.
+char *strpbrk(cs,ct)	liefert Zeiger auf die Position in cs, an der irgendein Zeichen aus ct erstmals vorkommt, oder NULL, falls keines vorkommt.
+char *strstr(cs,ct)	liefert Zeiger auf erste Kopie von ct in cs oder NULL, falls nicht vorhanden.
+size_t strlen(cs)	liefert Länge von cs (ohne '\0').
+char *strerror(n)	liefert Zeiger auf Zeichenkette, die in der Implementierung für Fehler n definiert ist.
+char *strtok(s,ct)	strtok durchsucht s nach Zeichenfolgen, die durch Zeichen aus ct begrenzt sind; siehe unten.
+
+Eine Folge von Aufrufen von strtok(s,ct) zerlegt s in Zeichenfolgen, die jeweils durch ein Zeichen aus ct begrenzt sind. Beim ersten von einer Reihe von Aufrufen ist s nicht NULL. Dieser Aufruf findet die erste Zeichenfolge in s, die nicht aus Zeichen in ct besteht; die Folge wird dadurch abgeschlossen, daß das nächste Zeichen in s mit '\0' überschrieben wird; der Aufruf liefert dann einen Zeiger auf die Zeichenfolge. Jeder weitere Aufruf der Reihe ist kenntlich dadurch, daß NULL für s übergeben wird; er liefert die nächste derartige Zeichenfolge, wobei unmittelbar nach dem Ende der vorhergehenden mit der Suche begonnen wird. strtok liefert NULL, wenn keine weitere Zeichenfolge gefunden wird. Die Zeichenkette ct kann bei jedem Aufruf verschieden sein.
+
+Die mem... Funktionen sind zur Manipulation von Objekten als Zeichenvektoren gedacht; sie sollen eine Schnittstelle zu effizienten Routinen sein. In der folgenden Tabelle haben s und t den Typ void *; die Argumente cs und ct sind vom Typ const void *; das Argument n hat den Typ size_t; und c ist ein int-Wert, der in unsigned char umgewandelt wird.
+
+void *memcpy(s,ct,n)	kopiert n Zeichen von ct nach s; liefert s.
+void *memmove(s,ct,n)	wie memcpy, funktioniert aber auch, wenn die Objekte überlappen.
+int memcmp(cs,ct,n)	vergleicht die ersten n Zeichen von cs mit ct; Resultat analog zu strcmp.
+void *memchr(cs,c,n)	liefert Zeiger auf das erste c in cs oder NULL, wenn das Zeichen in den ersten n Zeichen nicht vorkommt.
+void *memset(s,c,n)	setzt die ersten n Zeichen von s auf den Wert c, liefert s.
