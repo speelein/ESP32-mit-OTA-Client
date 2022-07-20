@@ -95,8 +95,9 @@ Ende Nacht:
 #include <stdlib.h>
 #include <Arduino_JSON.h>
 // Fuer SD-CardReader
-#include "FS.h"
-#include "SD.h"
+// #include "FS.h"
+// Fur Gassensor
+// #include "SD.h"
 
 
 
@@ -129,7 +130,7 @@ float CO2 = 0;
 // char input;
 
 
-// fuer influxdb
+// fuer influxdb funktioniert nicht
 
 // InfluxDB  server url. Don't use localhost, always server name or ip address.
 // E.g. http://192.168.1.48:8086 (In InfluxDB 2 UI -> Load Data -> Client Libraries),
@@ -146,7 +147,7 @@ float CO2 = 0;
 // InfluxDB client instance
 // InfluxDBClient client(INFLUXDB_URL, INFLUXDB_ORG, INFLUXDB_BUCKET, INFLUXDB_TOKEN);
 // InfluxDB client instance for InfluxDB 1
-//InfluxDBClient client(INFLUXDB_URL, INFLUXDB_DB_NAME);
+// InfluxDBClient client(INFLUXDB_URL, INFLUXDB_DB_NAME);
 // Data point
 // Point sensor("wifi_status");
 // #define DEVICE "ESP32"
@@ -682,7 +683,7 @@ void loop()
       delay(4000);
     }
   }
-
+  {
   ArduinoOTA.handle();
 
   lcd.clear();
@@ -716,8 +717,13 @@ void loop()
   lcd.print(huminity);
   lcd.setCursor(13, 3);
   lcd.print("%");
+  delay(4000);
 
-
+  ArduinoOTA.handle();
+  }
+}
+// fuer CO2 und LPG-Gas
+/*
   delay(2000);
   pinMode(analogPin, INPUT_PULLDOWN);
   delay(2000);
@@ -738,7 +744,7 @@ void loop()
 
   ArduinoOTA.handle();
   delay(2000);
-
+*/
   /* ab hier influxdb
 
     // Store measured value into point
@@ -776,4 +782,3 @@ void loop()
  */   
  
 
-}
