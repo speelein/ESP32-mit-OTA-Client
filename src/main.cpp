@@ -682,8 +682,7 @@ void loop()
       digitalWrite(2, LOW);
       delay(4000);
     }
-  }
-  {
+  
   ArduinoOTA.handle();
 
   lcd.clear();
