@@ -1,0 +1,13 @@
+"launch": {
+		"version": "0.2.0",
+		"configurations": [
+
+		
+			{
+				"name": "Python: Modul",
+				"type": "python",
+				"request": "launch",
+				"module": "enter-your-module-name"
+			}
+		]
+	}

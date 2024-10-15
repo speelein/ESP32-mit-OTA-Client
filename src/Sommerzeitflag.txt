@@ -1,0 +1,119 @@
+Die Zeitfunktionen gehören nicht zu den C++-Bibliotheken, sondern sind ein Erbstück von C. Eigentlich stammt dieser Bereich aus den Betriebssystemfunktionen von UNIX. Sie sind aber mit der Sprache C auf die anderen Systeme mit hinübergeschwappt. Von dort gerieten die Funktionen in den ANSI-Standard für C und sind damit systemübergreifend nutzbar, was vor allem beim Wechsel des Betriebssystems oder des Compilers und bei der Entwicklung portabler Software von großem Nutzen ist.
+Datum und Uhrzeit
+Sekunden seit dem 1.1.1970
+Vermutlich wird die häufigste Anwendung der Zeitfunktionen die Ermittlung des aktuellen Datums und der Uhrzeit sein. Die Funktion time()
+ liefert die aktuelle Zeit. Der Rückgabewert liefert die vergangenen Sekunden seit dem 1.1.1970. Der Typ dieser Funktion heißt time_t
+  und überdeckt eigentlich einen long-Wert. Sofern Sie aber nicht tatsächlich die Anzahl der Sekunden seit diesem Tag in Ihrem 
+  Programm anzeigen wollen, sollten Sie diese Kompatibilität nicht nutzen.
+
+  
+// fuer Darstellung auf Display Sommerzeit
+  int st = std;
+  st = st + tm_isdst; // Sommer ( 0 )- Winterzeit ( 1 ) umschalten
+  float alle = st + min + sek; // alle respektiert auch Stunde mit Dezimalzahl
+  int mi = mini;
+#include <time.h>
+time_t time(time_t *t);
+
+Als Parameter können Sie entweder die Adresse einer Variable vom Typ time_t angeben, in der Sie dann das Ergebnis der Funktion vorfinden, oder einfach 0 verwenden und dann den Rückgabewert in einer Variablen ablegen. Da die wenigsten Menschen mit der Zahl der Sekunden seit dem 1.1.1970 umgehen können, gibt es hilfreiche Umrechnungsfunktionen. Mit der Funktion localtime() können Sie anhand einer Variablen vom Typ time_t eine Struktur namens tm füllen. Diese Struktur enthält Elemente für die Bestandteile des Datums und der Uhrzeit.
+
+#include <time.h>
+struct tm *localtime(const time_t *timer);
+
+tm enthält alle Zeitinformationen
+Die Struktur tm, deren Zeiger die Funktion localtime() liefert, enthält alle gewünschten Daten, wie das Tagesdatum oder den Wochentag. Alle Werte beginnen bei 0, außer demjenigen für den Tag des Monats. Dieser Wert beginnt mit 1. Das hat man vermutlich absichtlich so gemacht, damit Programmierer bei der Erstellung ihrer Programme etwas mehr aufpassen und sorgfältiger die Dokumentation lesen.
+
+struct tm {
+   int tm_sec;      /* Sekunden - [0,61] */
+   int tm_min;      /* Minuten - [0,59] */
+   int tm_hour;     /* Stunden - [0,23] */
+   int tm_mday;     /* Tag des Monats - [1,31] */
+   int tm_mon;      /* Monat im Jahr - [0,11] */
+   int tm_year;     /* Jahr seit 1900 */
+   int tm_wday;     /* Tage seit Sonntag (Wochentag) - [0,6] */
+   int tm_yday;     /* Tage seit Neujahr (1.1.) - [0,365] */
+   int tm_isdst;    /* Sommerzeit-Flag */
+}
+
+Beispiel
+Das folgende Programm verwendet die besprochenen Funktionen, um Datum und Uhrzeit anzuzeigen.
+
+[Zeitansage]
+
+#include <iostream>
+using namespace std;
+#include <time.h>
+
+int main()
+{
+    time_t Zeitstempel;
+    tm *nun;
+    Zeitstempel = time(0);
+    nun = localtime(&Zeitstempel);
+    cout << nun->tm_mday << '.' << nun->tm_mon+1 << '.'
+        << nun->tm_year+1900 << " - " << nun->tm_hour
+        << ':' << nun->tm_min << endl;
+}
+
+Schnellanzeige
+Wenn die aktuelle Uhrzeit nicht besonders formatiert sein muss, sondern beispielsweise nur für Protokolldateien als Zeitstempel gebraucht wird, gibt es die Funktionen asctime() und ctime(). Sie erzeugen aus den Zeitinformationen eine Zeichenkette im amerikanischen Format. Die Zeichenkette ist immer 26 Byte lang und endet mit einem Zeilenvorschubzeichen und einer abschließenden 0. Die Funktion asctime() erhält ihre Zeitinformation anhand der Struktur tm. Die Funktion ctime() verwendet die Sekundenzahl seit dem 1.1.1970, also den Typ time_t als Parameter.
+
+#include <time.h>
+char *asctime(const struct tm *t);
+char *ctime(const time_t *timep);
+
+Zeit stoppen
+gettimeofday()
+Mit der Funktion time() erhalten Sie die aktuelle Uhrzeit auf die Sekunde genau. Wenn Sie allerdings eine genauere Zeitauflösung benötigen, verwenden Sie die Funktion gettimeofday(). Sie liefert in der Struktur timeval auch Mikrosekunden. Wie exakt diese Messung tatsächlich ist, hängt allerdings von der Hardware ab. Die meisten Hardware-Uhrbausteine liefern keine so exakten Werte.
+
+#include <sys/time.h>
+int gettimeofday(struct timeval *zeit, void *tzp);
+
+Die Datenstruktur des ersten Parameters enthält die Sekunden und Mikrosekunden und ist folgendermaßen definiert:
+
+struct timeval {
+    unsigned long  tv_sec;   /* Sekunden seit dem 1.1.1970 */
+    long           tv_usec;  /* und Mikrosekunden */
+};
+
+Der zweite Parameter war ursprünglich für die Zeitzone vorgesehen. Allerdings hat sich die Umsetzung der verschiedenen Sommerzeitregeln als nicht so einfach erwiesen, sodass Sie als zweiten Parameter am besten 0 angeben.
+Beispiel
+Der folgende Programmausschnitt zeigt, wie eine Laufzeitmessung mit Hilfe der Funktion gettimeofday() durchgeführt werden kann.
+
+[Laufzeitermittlung]
+
+#include <iostream>
+using namespace std;
+#include <sys/time.h>
+int main()
+{
+  timeval start, end;
+  gettimeofday(&start, 0);
+  ...
+  gettimeofday(&end, 0);
+  cout << start.tv_sec << ':' << start.tv_usec << endl;
+  cout << end.tv_sec << ':' << end.tv_usec << endl;
+}
+
+Tickzählung per clock()
+Mit der Funktion clock() wird die verbrauchte CPU-Zeit ermittelt. Das heißt, dass Zeiten anderer parallel laufender Prozesse nicht in die Zeitmessung mit einfließen. Dazu werden die verbrauchten CPU-Ticks seit dem Start des Programms ermittelt. Um auf Sekunden zu kommen, muss der Wert durch die Konstante CLOCKS_PER_SEC geteilt werden. Diese Funktion eignet sich vor allem für Performance-Messungen.
+
+#include <time.h>
+clock_t clock(void);
+
+Das folgende Programm zeigt, wie die CPU-Zeit gemessen wird. Zu Anfang wird ein Startwert gemessen, da nicht unbedingt garantiert ist, dass nicht schon Ticks gezählt wurden. Am Ende wird der Wert erneut gemessen. Das Programm zeigt auch die Konstante CLOCKS_PER_SEC an. Bei POSIX-Systemen sollte sie immer 1.000.000 betragen.
+
+[CPU-Messung]
+
+#include <iostream>
+using namespace std;
+#include <time.h>
+int main()
+{
+  clock_t start, end;
+  start = clock();
+  ...
+  end = clock();
+  cout << start << endl;
+  cout << end << ':' << CLOCKS_PER_SEC << endl;
+}

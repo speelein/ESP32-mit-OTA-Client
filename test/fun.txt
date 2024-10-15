@@ -1,0 +1,8 @@
+Building in release mode
+Compiling .pio/build/esp32doit-devkit-v1/src/main.cpp.o
+src/main.cpp: In function 'void fun()':
+src/main.cpp:167:11: warning: unused variable 'temp' [-Wunused-variable]
+     float temp =atof(inputMessage); //this is a c way to do it
+           ^
+src/main.cpp:167:21: warning: 'inputMessage' is used uninitialized in this function [-Wuninitialized]
+     float temp =atof(inputMessage); //this is a c way to do it
