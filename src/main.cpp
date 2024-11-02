@@ -374,7 +374,7 @@ void loop()
   // stuct tm nach tsstruct
   time_t now = time(0);
   struct tm tstruct = *localtime(&now);
-  int tm_isdst;    /* Sommerzeit-Flag */
+  float sommer = tstruct.tm_isdst;    /* Sommerzeit-Flag */
   // aus tsstruct std , min, sek und alle als float
   // fuer auswerten Tag - Nacht Schaltung
   float std = tstruct.tm_hour;
