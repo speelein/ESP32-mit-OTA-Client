@@ -121,7 +121,7 @@ float FaktorTemperatur = 0;  // Faktor zur Bestimmung Heizzeit
 float Zeit = 0;
 
 // Auszeit Nacht
-float tAusNacht = 23.00;
+float tAusNacht = 23.50;
 float tOnTag = 2.00;
 
 
