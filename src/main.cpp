@@ -115,7 +115,7 @@ LiquidCrystal_I2C lcd(0x27, 20, 4); // set the LCD address to 0x27 for a 16 char
 // Temperaturvariablen
 float temperatur;  // Temperatur Messwert DHT 22
 float huminity;    // Feuchte rel. Messwert DHT 22
-float temp = 23.5; // Sollwert Raumtemperatur
+float temp = 23.0; // Sollwert Raumtemperatur
 float DeltaTemperatur = 0; // Temperaturdifferenz zwischen temperatur und temp
 float FaktorTemperatur = 0;  // Faktor zur Bestimmung Heizzeit
 float Zeit = 0;
