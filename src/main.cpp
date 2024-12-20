@@ -186,6 +186,38 @@ void notFound(AsyncWebServerRequest *request) {
 
 
 
+/**
+ * @brief Setup function for initializing the ESP32 with various peripherals and services.
+ * 
+ * This function performs the following tasks:
+ * - Configures pin modes and initializes peripherals.
+ * - Initializes the LCD display and sets up the WiFi connection.
+ * - Configures and starts the Arduino OTA (Over-the-Air) update service.
+ * - Initializes the DHT sensor and prints sensor details.
+ * - Configures the SNTP client for time synchronization.
+ * - Sets up the web server with routes for handling HTTP GET requests.
+ * 
+ * Pin Configuration:
+ * - Pin 32: OUTPUT, initially set to LOW.
+ * - Pin 33: OUTPUT, initially set to LOW.
+ * - Pin 2: OUTPUT, initially set to LOW.
+ * 
+ * WiFi Configuration:
+ * - Connects to the WiFi network using the provided SSID and password.
+ * - Displays connection status and IP address on the LCD.
+ * 
+ * OTA Configuration:
+ * - Sets up OTA callbacks for start, end, progress, and error events.
+ * 
+ * Web Server Configuration:
+ * - Serves a web page with input fields.
+ * - Handles GET requests to retrieve input values.
+ * - Responds with the received input values and a link to return to the home page.
+ * 
+ * @note Ensure that the necessary libraries and dependencies are included in the project.
+ */
+
+
 void setup()
 
 
