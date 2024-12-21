@@ -1,0 +1,25 @@
+#include <ctime>
+#include <iostream>
+
+void printTimeInfo() {
+    time_t now = time(0);
+    struct tm tstruct;
+    tstruct = *localtime(&now);
+
+    std::cout << "Year: " << tstruct.tm_year + 1900 << std::endl;
+    std::cout << "Month: " << tstruct.tm_mon + 1 << std::endl;
+    std::cout << "Day: " << tstruct.tm_mday << std::endl;
+    std::cout << "Hour: " << tstruct.tm_hour << std::endl;
+    std::cout << "Minute: " << tstruct.tm_min << std::endl;
+    std::cout << "Second: " << tstruct.tm_sec << std::endl;
+    std::cout << "Daylight Saving Time: " << (tstruct.tm_isdst > 0 ? "Yes" : "No") << std::endl;
+}
+
+void setup() {
+    Serial.begin(9600);
+    printTimeInfo();
+}
+
+void loop() {
+    // Your loop code here
+}
