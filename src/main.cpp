@@ -417,7 +417,7 @@ void loop()
   
   // fuer Darstellung auf Display
   // int st = std;
-  int st = std - 1; // Sommer ( 0 )- Winterzeit ( 1 ) umschalten
+  int st = std - 0; // Sommer ( 0 )- Winterzeit ( 1 ) umschalten
   float alle = st + min + sek; // alle respektiert auch Stunde mit Dezimalzahl fuer Vergleich Zeile 393
   int mi = mini;
   
