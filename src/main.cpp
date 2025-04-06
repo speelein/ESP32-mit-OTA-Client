@@ -414,6 +414,16 @@ void loop()
   float min = mini / 60;
   float sek = tstruct.tm_sec;
   sek = sek / 3600;
+
+  int isDST = tstruct.tm_isdst; // Check if DST is active
+
+if (isDST == 1) {
+    Serial.println("Daylight saving time is active.");
+} else if (isDST == 0) {
+    Serial.println("Standard time (wintertime) is active.");
+} else {
+    Serial.println("DST information is not available.");
+}
   
   // fuer Darstellung auf Display
   // int st = std;
