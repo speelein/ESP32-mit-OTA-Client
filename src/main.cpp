@@ -418,7 +418,7 @@ void loop()
   int isDST = tstruct.tm_isdst; // Check if DST is active
   lcd.clear();
   lcd.setCursor(0, 0);
-  
+
 if (isDST == 1) {
     lcd.println("Sommertime is active.");
 } else if (isDST == 0) {
@@ -426,6 +426,7 @@ if (isDST == 1) {
 } else {
     lcd.println("DST information is not available.");
 }
+  delay(4000);
   
   // fuer Darstellung auf Display
   // int st = std;
