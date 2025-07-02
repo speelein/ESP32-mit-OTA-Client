@@ -108,8 +108,9 @@ const char *host = "esp32";
 const char *ssid = "5GH";
 const char *password = "112330720040719440";
 
-// Adresse und Zeilen fuer LCD
-LiquidCrystal_I2C lcd(0x27, 20, 4); // set the LCD address to 0x27 for a 16 chars and 2 line display                            // Instantiate (create) a BMP280_DEV object and set-up for I2C operation (address 0x77)
+// Adresse und Zeilen fuer LCD 
+LiquidCrystal_I2C lcd(0x27, 20, 4); // set the LCD address to 0x27 for a 16 chars and 2 line display                           
+// Instantiate (create) a BMP280_DEV object and set-up for I2C operation (address 0x77)
 
 // Variablendeklaration
 // Temperaturvariablen
