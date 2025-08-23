@@ -422,12 +422,12 @@ void loop()
 
 if (isDST = 1) {
     lcd.setCursor(3, 1);
-    lcd.println("  Sommertime      ");
+    lcd.println("  Sommerzeit     ");
     lcd.setCursor(3, 5);
     lcd.println(isDST);
 } else if (isDST = 0) {
     lcd.setCursor(3, 1);
-    lcd.println("  Wintertime      ");
+    lcd.println("  Normalzeit     ");
     lcd.setCursor(3, 5);
      lcd.println(isDST);
 
