@@ -346,7 +346,7 @@ void setup()
 #ifdef ESP8266
   pftime::configTzTime(TZ_Asia_Tokyo, ntpServer);
 #else // ESP32
-  pftime::configTzTime(PSTR("JST-2"), ntpServer);  //  "JST-2 Deutschland Zone"
+  pftime::configTzTime(PSTR("JST-3"), ntpServer);  //  "JST-2 Deutschland Zone"
 #endif
 
 
@@ -416,22 +416,30 @@ void loop()
   float sek = tstruct.tm_sec;
   sek = sek / 3600;
 
-  int isDST = tstruct.tm_isdst; // Check if DST is active
+  bool isDST = tstruct.tm_isdst; // Check if DST is active
   lcd.clear();
   lcd.setCursor(0, 0);
 
-if (isDST == 1) {
-    lcd.println("Sommertime is active.");
-} else if (isDST == 0) {
-    lcd.println("Standard time (wintertime) is active.");
+if (isDST = 1) {
+    lcd.setCursor(3, 1);
+    lcd.println("  Sommertime      ");
+    lcd.setCursor(3, 5);
+    lcd.println(isDST);
+} else if (isDST = 0) {
+    lcd.setCursor(3, 1);
+    lcd.println("  Wintertime      ");
+    lcd.setCursor(3, 5);
+     lcd.println(isDST);
+
 } else {
-    lcd.println("DST information is not available.");
+    lcd.setCursor(0, 1);
+    lcd.println(" No DST Info.");
 }
   delay(4000);
   
   // fuer Darstellung auf Display
   // int st = std;
-  int st = std - 0; // Sommer ( 0 )- Winterzeit ( 1 ) umschalten
+  int st = std - isDST; // Sommer ( 0 )- Winterzeit ( 1 ) umschalten
   float alle = st + min + sek; // alle respektiert auch Stunde mit Dezimalzahl fuer Vergleich Zeile 393
   int mi = mini;
   
