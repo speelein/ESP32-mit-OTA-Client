@@ -123,7 +123,7 @@ float Zeit = 0;
 
 // Auszeit Nacht
 float tAusNacht = 23.00;
-float tOnTag = 2.00;
+float tOnTag = 3.00;
 
 
 // Fuer Luftqualitaet
