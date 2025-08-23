@@ -127,5 +127,6 @@
   "C_Cpp_Runner.excludeSearch": [],
   "C_Cpp_Runner.enableWarnings": true,
   "C_Cpp_Runner.warningsAsError": false,
-  "cmake.configureOnOpen": false
+  "cmake.configureOnOpen": false,
+  "idf.pythonInstallPath": "/usr/bin/python"
 }
