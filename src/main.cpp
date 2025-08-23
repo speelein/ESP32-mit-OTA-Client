@@ -444,7 +444,7 @@ if (isDST = 1) {
   int mi = mini;
   
   // ZEIT fuer backlight
-   if ((alle > 3) && (alle < 21))
+   if ((alle > 3) && (alle < 22))
   {lcd.backlight();}
   else{
     lcd.noBacklight();
